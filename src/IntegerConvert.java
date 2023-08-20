@@ -21,6 +21,33 @@ public class IntegerConvert {
 	 * @throws NumberFormatException the number format exception
 	 */
 	public static int parseInt(String in) throws NumberFormatException {
+		int number = 0;
+	    int ascii = (int)'0';
+		int negative = checkNeg(in);
+		int index = checkNeg(in);
+		if (in.charAt(index) != '+' && in.charAt(index) != '_') {
+			number = (int)in.charAt(index) - ascii;
+		}
+		index++;
+		while(index < in.length()) {
+			if ((int)in.charAt(index) != (int)'_') {
+				number = number*10 + ((int)in.charAt(index) - ascii);
+			}
+			index++;
+		}
+		if (negative == 1) 
+			return number*(-1);
+		return number;
+	}
+	
+	/**
+	 * Checks if the first character is a negative sign
+	 * 
+	 * @param String input
+	 * @return 1 if there is a negative, 0 if not a negative
+	 */
+	private static int checkNeg(String input) {
+		if (input.charAt(0) == 45) return 1;
 		return 0;
 	}
 
@@ -32,7 +59,8 @@ public class IntegerConvert {
 	 * @throws NumberFormatException the number format exception
 	 */
 	public static byte parseByte(String in) throws NumberFormatException {
-		return 0;
+		int number = parseInt(in);
+		return (byte)number;
 	}
 	
 	/**
@@ -43,7 +71,14 @@ public class IntegerConvert {
 	 * @throws NumberFormatException the number format exception
 	 */
 	public static int parseBinStrToInt(String in) throws NumberFormatException {
-		return 0;
+		int number = 0;
+		int ascii = (int)'0';
+		for(int index = 2; index < in.length(); index++) {
+			if (in.charAt(index) != '_') {
+				number = number*2 + ((int)in.charAt(index)-ascii);
+			}
+		}
+		return parseInt(String.valueOf(number));
 	}
 	
 	/**
@@ -54,7 +89,13 @@ public class IntegerConvert {
 	 * @throws NumberFormatException the number format exception
 	 */
 	public static byte parseBinStrToByte(String in) throws NumberFormatException {
-		return 0;
+		int number = 0;
+		for(int index = 2; index < in.length(); index++) {
+			if (in.charAt(index) != '_') {
+				number = number*2 + ((int)in.charAt(index)-(int)'0');
+			}
+		}
+		return parseByte(String.valueOf(number));
 	}
 	
 	/**
