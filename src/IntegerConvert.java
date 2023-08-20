@@ -22,7 +22,7 @@ public class IntegerConvert {
 	 */
 	public static int parseInt(String in) throws NumberFormatException {
 		int number = 0;
-	    int ascii = (int)'0';
+		int ascii = (int)'0';
 		int negative = checkNeg(in);
 		int index = checkNeg(in);
 		if (in.charAt(index) != '+' && in.charAt(index) != '_') {
