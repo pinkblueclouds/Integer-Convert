@@ -18,9 +18,11 @@ public class IntegerConvert {
 	 *
 	 * @param in the String to convert
 	 * @return the converted value of the string represented as an int
-	 * @throws NumberFormatException the number format exception
+	 * @throws NumberFormatException if string is empty or value is + or -
 	 */
 	public static int parseInt(String in) throws NumberFormatException {
+		if ("".equals(in) || (in.length() == 1))
+			throw new NumberFormatException();
 		int number = 0;
 		int ascii = (int)'0';
 		int negative = checkNeg(in);
@@ -169,7 +171,14 @@ public class IntegerConvert {
 		// TODO Auto-generated method stub
 		// You should write basic testing of each of your methods here.
 		// I will provide a more comprehensive testing using JUnit.
-
+		System.out.println(parseInt("12345"));
+	    System.out.println();
+	    System.out.println(parseInt("-543"));
+	    System.out.println();
+	    System.out.println(parseInt("0123"));
+	    System.out.println();
+	    System.out.println(parseInt("+0123"));
+	    System.out.println(parseByte("12"));
 	}
 
 }
