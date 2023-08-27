@@ -243,7 +243,55 @@ public class IntegerConvert {
 	 * @return the equivalent binary string representation (32 bits)
 	 */
 	public static String intToBinaryString(int in) {
-		return("");
+		String binString = "";
+		int input = in;
+		for (int i = 0; i < 32; i++) {
+			binString = (input%2 == 0) ? "0"+binString:"1"+binString;
+			input = input/2;
+		}
+		if (in < 0) {
+			binString = flipBits(binString);
+			binString = addOne(binString);
+		}
+		return(binString);
+	}
+	
+	/**
+	 * Flipping bits for negative numbers
+	 * @param input String
+	 * @return flipped String
+	 */
+	private static String flipBits(String input) {
+		String str = "";
+		for (int i = 0; i < input.length(); i++) {
+			str += (input.charAt(i)=='0') ? "1": "0";
+		}
+		return str;
+	}
+	
+	/**
+	 * Adding 1 to the negative number
+	 * @param input
+	 * @return
+	 */
+	private static String addOne(String input) {
+		String newString = "";
+		int index = input.length()-1;
+		while (true) {
+			if ((int)input.charAt(index)==(int)'1') {
+				newString = '0' + newString;
+				index--;
+			}
+			else {
+				newString = '1' + newString;
+				index--;
+				break;
+			}
+		}
+		for (int i = index; i >=0; i--) {
+			newString = input.charAt(i) + newString;
+		}
+		return newString;
 	}
 	
 	/**
@@ -253,7 +301,17 @@ public class IntegerConvert {
 	 * @return the equivalent binary string representation (8 bits)
 	 */
 	public static String byteToBinaryString(byte in) {
-		return("");
+		String binString = "";
+		int input = in;
+		for (int i = 0; i < 8; i++) {
+			binString = (input%2 == 0) ? "0"+binString:"1"+binString;
+			input = input/2;
+		}
+		if (in < 0) {
+			binString = flipBits(binString);
+			binString = addOne(binString);
+		}
+		return(binString);
 	}
 	
 	/**
@@ -263,7 +321,43 @@ public class IntegerConvert {
 	 * @return the equivalent hex string representation (8 hex chars)
 	 */
 	public static String intToHexString(int in) {
-		return("");
+		String hexString = "";
+		if (in < 0) {
+			long temp = -(long)in;
+			hexString = unsignedIntToHex((temp^4294967295L) + 1);
+		}
+		else
+			hexString = unsignedIntToHex(in);
+		return(hexString);
+	}
+	
+	/**
+	 * Helper method, turns unsigned number into Hex
+	 * @param in
+	 * @return
+	 */
+	private static String unsignedIntToHex(long in) {
+		String hex = "";
+		long remainder;
+		for (int i = 0; i < 8; i++) {
+			remainder = in%16;
+			in = in/16;
+			hex = turnIntToChar((int)remainder) + hex;
+		}
+		return hex;
+	}
+
+	/**
+	 * Turn an integer 0-15 into a hex digit 0-9 and a-f
+	 * @param input integer
+	 * @return the corresponding character
+	 */
+	private static char turnIntToChar(int in) {
+		if (in >= 0 && in <= 9) {
+			return (char)('0'+in);
+		}
+		else
+			return (char)('a'+(in-10));
 	}
 	
 	/**
@@ -273,7 +367,26 @@ public class IntegerConvert {
 	 * @return the equivalent hex string representation (2 hex chars)
 	 */
 	public static String byteToHexString(byte in) {
-		return("");	
+		String hexString = "";
+		if (in < 0) {
+			int temp = -in;
+			hexString = unsignedByteToHex((temp^255)+1);
+		}
+		else
+			hexString = unsignedByteToHex(in);
+		
+		return(hexString);	
+	}
+	
+	private static String unsignedByteToHex(int in) {
+		String hex = "";
+		int remainder;
+		for (int i = 0; i < 2; i++) {
+			remainder = in%16;
+			in = in/16;
+			hex = turnIntToChar(remainder) + hex;
+		}
+		return hex;
 	}
 	
 	/**
@@ -293,10 +406,17 @@ public class IntegerConvert {
 	    */
 	    
 	    //Testing cases that should error
-	    System.out.println(parseInt("-2147483649"));
+	    //System.out.println(parseInt("-2147483649"));
 	    
+	    System.out.println(intToBinaryString(-123));
+	    System.out.println(intToBinaryString((int)Min_Int));
+	    System.out.println(byteToBinaryString((byte)-123));
 	    
 		
+		System.out.println(intToHexString(-1));
+		System.out.println(intToHexString(-2147483648));
+		System.out.println(byteToHexString((byte)-128));
+		System.out.println("done");
 	}
 
 }
