@@ -150,7 +150,7 @@ public class IntegerConvert {
 	 * @param the String of numbers given
 	 * @return true if it contains "0b"
 	 */
-	public static boolean checkBinStart(String binary) {
+	private static boolean checkBinStart(String binary) {
 		return (binary.charAt(0)=='0' && binary.charAt(1)=='b');
 	}
 	
@@ -160,7 +160,7 @@ public class IntegerConvert {
 	 * @param binary string
 	 * @return converted integer
 	 */
-	public static int turnBintoInt(String binary, int max) {
+	private static int turnBintoInt(String binary, int max) {
 		int number = 0;
 		int start = 2;
 		while (binary.charAt(start) == '_')
@@ -242,7 +242,7 @@ public class IntegerConvert {
 	 * @param in the integer to convert
 	 * @return the equivalent binary string representation (32 bits)
 	 */
-	public static String intToBinaryString(int in) {
+	private static String intToBinaryString(int in) {
 		String binString = "";
 		int input = in;
 		for (int i = 0; i < 32; i++) {
@@ -398,24 +398,33 @@ public class IntegerConvert {
 		// TODO Auto-generated method stub
 		// You should write basic testing of each of your methods here.
 		// I will provide a more comprehensive testing using JUnit.
-		/*System.out.println(parseInt("12345"));
+		System.out.println(parseInt("12345"));
 	    System.out.println(parseInt("-543"));
 	    System.out.println(parseInt("0123"));
-	    System.out.println(parseInt("+0123"));
+	    System.out.println(parseByte("+123"));
 	    System.out.println(parseByte("12"));
-	    */
+	    
+	    System.out.println(parseBinStrToInt("0b0110_1000010111010101100011000111"));
+	    System.out.println(parseBinStrToInt("0b11101010111111101110001101110000"));
+	    System.out.println(parseBinStrToByte("0b01111000"));
+	    System.out.println(parseBinStrToByte("0b11010000"));
+	    
+	    System.out.println(parseHexStrToInt("0xB5E2"));
+	    System.out.println(parseHexStrToInt("0x0900"));
 	    
 	    //Testing cases that should error
 	    //System.out.println(parseInt("-2147483649"));
 	    
-	    System.out.println(intToBinaryString(-123));
-	    System.out.println(intToBinaryString((int)Min_Int));
+	    System.out.println(intToBinaryString(-1239423));
+	    System.out.println(intToBinaryString(348514328));
 	    System.out.println(byteToBinaryString((byte)-123));
+	    System.out.println(byteToBinaryString((byte)82));
 	    
 		
-		System.out.println(intToHexString(-1));
-		System.out.println(intToHexString(-2147483648));
+		System.out.println(intToHexString(2348493));
+		System.out.println(intToHexString(-2147483629));
 		System.out.println(byteToHexString((byte)-128));
+		System.out.println(byteToHexString((byte)96));
 		System.out.println("done");
 	}
 
