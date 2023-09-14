@@ -31,7 +31,7 @@ public class IntegerConvert {
 			throw new NumberFormatException("Inputted an empty String");
 		if (checkLetters(in)  || (in.length() == 1 && (in.charAt(0)=='-' || in.charAt(0)=='+')))
 			throw new NumberFormatException("Non compliant value in String");
-		if (countLengthWithoutUnderscore(in) == 0 || countLengthWithoutUnderscore(in.substring(1,in.length()))==0)
+		if (countLengthWithoutUnderscore(in) == 0)
 			throw new NumberFormatException("Non compliant value in String");
 		long number = 0;
 		int negative = checkNeg(in);
@@ -193,7 +193,10 @@ public class IntegerConvert {
 	 */
 	private static int countLengthWithoutUnderscore(String in) {
 		int count = 0;
-		for (int i = 0; i < in.length(); i++) {
+		int index = 0;
+		if (in.charAt(0) == '+' || in.charAt(0)=='-')
+			index = 1;
+		for (int i = index; i < in.length(); i++) {
 			if (in.charAt(i)!='_')
 				count++;
 		}
@@ -242,7 +245,7 @@ public class IntegerConvert {
 	 * @param in the integer to convert
 	 * @return the equivalent binary string representation (32 bits)
 	 */
-	private static String intToBinaryString(int in) {
+	public static String intToBinaryString(int in) {
 		String binString = "";
 		int input = in;
 		for (int i = 0; i < 32; i++) {
